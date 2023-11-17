@@ -6,7 +6,7 @@ import 'package:music_player/controller/player_controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Player extends StatelessWidget {
-  final List <SongModel> data;
+  final List<SongModel> data;
   const Player({super.key, required this.data});
 
   @override
@@ -18,30 +18,27 @@ class Player extends StatelessWidget {
       body: Column(
         children: [
           Obx(
-                ()=> Expanded(
-                child: Container(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  height: 300,
-                  width: 300,
-                  decoration: const BoxDecoration(
-
-                    shape: BoxShape.circle,
-
-                  ),
-                  alignment: Alignment.center,
-
-                  child:QueryArtworkWidget(
-                      id: data[controller.playIndex.value].id,
-                      type: ArtworkType.AUDIO,
-                    artworkHeight: double.infinity,
-                    artworkWidth: double.infinity,
-                    nullArtworkWidget: const Icon(
-                      Icons.music_note,
-                      size: 48,
-                      color: whiteColor,
-                    ),
+            () => Expanded(
+              child: Container(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                height: 300,
+                width: 300,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: QueryArtworkWidget(
+                  id: data[controller.playIndex.value].id,
+                  type: ArtworkType.AUDIO,
+                  artworkHeight: double.infinity,
+                  artworkWidth: double.infinity,
+                  nullArtworkWidget: const Icon(
+                    Icons.music_note,
+                    size: 48,
+                    color: whiteColor,
                   ),
                 ),
+              ),
             ),
           ),
           const SizedBox(
@@ -53,22 +50,21 @@ class Player extends StatelessWidget {
               alignment: Alignment.center,
               decoration: const BoxDecoration(
                   color: whiteColor,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(16),
-                )
-              ),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(16),
+                  )),
               child: Obx(
-                    ()=>Column(
+                () => Column(
                   children: [
                     const SizedBox(
                       height: 12,
                     ),
                     Text(
-                        data[controller.playIndex.value].displayNameWOExt,
+                      data[controller.playIndex.value].displayNameWOExt,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
-                      style: ourStyle(
+                      style: myStyle(
                         color: bgDarkColor,
                         family: bold,
                         size: 24,
@@ -82,7 +78,7 @@ class Player extends StatelessWidget {
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
-                      style: ourStyle(
+                      style: myStyle(
                         color: bgDarkColor,
                         family: regular,
                         size: 20,
@@ -92,31 +88,34 @@ class Player extends StatelessWidget {
                       height: 12,
                     ),
                     Obx(
-                          ()=>Row(
+                      () => Row(
                         children: [
                           Text(
                             controller.position.value,
-                            style: ourStyle(
+                            style: myStyle(
                               color: bgDarkColor,
                             ),
                           ),
                           Expanded(
                             child: Slider(
-                              thumbColor: sliderColor ,
-                                inactiveColor: bgColor,
-                                activeColor: sliderColor,
-                                min: const Duration(seconds: 0).inSeconds.toDouble(),
-                                max: controller.max.value,
-                                value: controller.value.value,
-                                onChanged: (newValue){
-                                controller.changeDurationToSeconds(newValue.toInt());
-                                newValue=newValue;
-                                },
+                              thumbColor: sliderColor,
+                              inactiveColor: bgColor,
+                              activeColor: sliderColor,
+                              min: const Duration(seconds: 0)
+                                  .inSeconds
+                                  .toDouble(),
+                              max: controller.max.value,
+                              value: controller.value.value,
+                              onChanged: (newValue) {
+                                controller
+                                    .changeDurationToSeconds(newValue.toInt());
+                                newValue = newValue;
+                              },
                             ),
                           ),
                           Text(
                             controller.duration.value,
-                            style: ourStyle(
+                            style: myStyle(
                               color: bgDarkColor,
                             ),
                           ),
@@ -130,49 +129,48 @@ class Player extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         IconButton(
-                            onPressed: (){
-                              controller.playSong(data[controller.playIndex.value-1].uri, controller.playIndex.value-1);
-                            },
-                            icon: const Icon(
-                                Icons.skip_previous_rounded,
-                              size: 40,
-                              color: bgDarkColor
-                            ),
+                          onPressed: () {
+                            controller.playSong(
+                                data[controller.playIndex.value - 1].uri,
+                                controller.playIndex.value - 1);
+                          },
+                          icon: const Icon(Icons.skip_previous_rounded,
+                              size: 40, color: bgDarkColor),
                         ),
-                        Obx(()=> CircleAvatar(
+                        Obx(
+                          () => CircleAvatar(
                             radius: 35,
                             backgroundColor: bgDarkColor,
                             child: Transform.scale(
                               scale: 2.5,
                               child: IconButton(
-                                onPressed: (){
-                                  if(controller.isPlaying.value){
+                                onPressed: () {
+                                  if (controller.isPlaying.value) {
                                     controller.audioPlayer.pause();
                                     controller.isPlaying(false);
                                   }
                                 },
-                                icon: controller.isPlaying.value ?
-                                const Icon(Icons.pause,
-                                  color: whiteColor,
-                                ): const Icon(
-                                  Icons.play_arrow_rounded,
-                                  color: whiteColor,
-                                ),
+                                icon: controller.isPlaying.value
+                                    ? const Icon(
+                                        Icons.pause,
+                                        color: whiteColor,
+                                      )
+                                    : const Icon(
+                                        Icons.play_arrow_rounded,
+                                        color: whiteColor,
+                                      ),
                               ),
                             ),
                           ),
                         ),
-
                         IconButton(
-                          onPressed: (){
+                          onPressed: () {
                             controller.playSong(
-                                data[controller.playIndex.value+1].uri, controller.playIndex.value+1);
+                                data[controller.playIndex.value + 1].uri,
+                                controller.playIndex.value + 1);
                           },
-                          icon: const Icon(
-                              Icons.skip_next_rounded,
-                            size: 40,
-                              color: bgDarkColor
-                          ),
+                          icon: const Icon(Icons.skip_next_rounded,
+                              size: 40, color: bgDarkColor),
                         ),
                       ],
                     ),

@@ -18,6 +18,8 @@ class PlayerController extends GetxController {
   var max=0.0.obs;
   var value=0.0.obs;
 
+  var currentIndex=0.obs;
+
   @override
   void onInit() {
 

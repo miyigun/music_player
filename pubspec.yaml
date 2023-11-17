@@ -79,12 +79,13 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: bold
+    - family: Dancing Script
       fonts:
-        - asset: assets/fonts/bold.ttf
-    - family: great_vibes
+        - asset: assets/fonts/dancing_bold.ttf
+        - asset: assets/fonts/dancing_regular.ttf
+    - family: Painter
       fonts:
-        - asset: assets/fonts/great_vibes_regular.ttf
+        - asset: assets/fonts/painter.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
