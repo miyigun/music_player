@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:music_player/controller/consts/colors.dart';
 import 'package:music_player/controller/player_controller.dart';
 import 'package:music_player/view/music_player_tab.dart';
-import 'package:music_player/view/profle_tab.dart';
+import 'package:music_player/view/tools_tab.dart';
 import 'package:music_player/view/settings_tab.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -19,7 +19,7 @@ class PageBase extends StatelessWidget {
 
     var listPages=[
       MusicPlayerTab(data: data),
-      const ProfileTab(),
+      ToolsTab(data: data),
       const SettingsTab()
     ];
 

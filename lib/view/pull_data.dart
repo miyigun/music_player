@@ -41,7 +41,14 @@ class PullData extends StatelessWidget {
                   ),
                 );
               } else {
+
+                controller.favoriteSelectedList.value=List.generate(snapshot.data!.length, (index) => false);
+                controller.favoriteIdList.value=List.generate(snapshot.data!.length, (index) => '');
+                controller.favoriteSingList.value=List.generate(snapshot.data!.length, (index) => '');
+                controller.favoriteSingerList.value=List.generate(snapshot.data!.length, (index) => '');
+
                 return PageBase(data: snapshot.data!);
+
               }
             }));
   }

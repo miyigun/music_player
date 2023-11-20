@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:music_player/model/sing_song_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -20,12 +21,47 @@ class PlayerController extends GetxController {
 
   var currentIndex=0.obs;
 
+  var favoriteListIndex=0.obs;
+
+  var favoriteSelectedList=[].obs;
+
+  var favoriteIdList=[].obs;
+  var favoriteSingList=[].obs;
+  var favoriteSingerList=[].obs;
+
+  var searchSingList=<SingSongModel>[].obs;
+  var searchSingerList=[].obs;
+
   @override
   void onInit() {
 
     super.onInit();
 
     checkPermission();
+  }
+
+  searchSing(String singer, int index,List<SongModel> data){
+    for(int i=0;i<data.length;i++){
+      if (singer==data[i].artist){
+        //searchSingList
+      }
+    }
+  }
+
+  changeFavoriteList(index,List <SongModel> data){
+    favoriteSelectedList[index]=!favoriteSelectedList[index];
+
+    if (favoriteSelectedList[index]==true) {
+      favoriteIdList[index]=data[index].id;
+      favoriteSingList[index]=data[index].displayName;
+      favoriteSingerList[index]=data[index].artist;
+
+    } else {
+      favoriteIdList[index]='';
+      favoriteSingList[index]='';
+      favoriteSingerList[index]='';
+
+    }
   }
 
   updatePosition(){

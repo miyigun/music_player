@@ -7,26 +7,190 @@ import 'package:music_player/view/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MusicPlayerTab extends StatelessWidget {
-  final List <SongModel> data;
+  final List<SongModel> data;
   const MusicPlayerTab({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(PlayerController());
+    PlayerController controller = Get.find();
 
     return Scaffold(
         backgroundColor: bgDarkColor,
         appBar: AppBar(
-          backgroundColor: bgWhiteColor,
+          backgroundColor: bgColor,
           actions: [
             IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.search, color: yellowColor),
-            ),
-            IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context){
+                      TextEditingController singer=TextEditingController();
+                      TextEditingController sing=TextEditingController();
+                      return AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        title: Row(
+                          //mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                                Icons.sort_rounded,
+                              size: 60,
+                            ),
+                            SizedBox(width: 10),
+                            Center(child: Text("SIRALAMA PENCERESİ")),
+                          ],
+                        ),
+                        //backgroundColor: bgWhiteColor,
+                        content:Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                children: [
+                                  Text("Şarkıcı:"),
+                                  SizedBox(width: 10),
+                                  Container(
+                                    width: 150,
+                                      child: TextField(
+                                        controller: singer,
+                                        //maxLength: 100,
+                                        onTap: (){
+
+                                        },
+                                      )
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10,),
+                              Row(
+                                children: [
+                                  Text("Şarkı:"),
+                                  SizedBox(width: 20),
+                                  Container(
+                                      width: 150,
+                                      child: TextField(
+                                        controller: sing,
+                                        //maxLength: 50,
+                                        onTap: (){
+                                          //controller.searchSing(sing.text, index, data);
+                                        },
+                                      )
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        actions: [
+                          ElevatedButton(
+                              onPressed: (){
+                                for(int i=0;i<data.length;i++){
+                                  if (singer.value==data[i].artist){
+
+                                  }
+                                }
+                              },
+                              child: Text("Ara")
+                          ),
+                          ElevatedButton(
+                              onPressed: (){
+                                Get.back();
+                              },
+                              child: Text("Vazgeç")
+                          ),
+                        ],
+
+                      );
+                    }
+                );
+              },
               icon: const Icon(Icons.sort_rounded, color: yellowColor),
             ),
+            IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context){
+                      TextEditingController singer=TextEditingController();
+                      TextEditingController sing=TextEditingController();
+                      return AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        title: Row(
+                          //mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.search,
+                              size: 60,
+                            ),
+                            SizedBox(width: 10),
+                            Center(child: Text("ARAMA PENCERESİ")),
+                          ],
+                        ),
+                        //backgroundColor: bgWhiteColor,
+                        content:Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: [
+                                Text("Şarkıcı:"),
+                                SizedBox(width: 10),
+                                Container(
+                                    width: 150,
+                                    child: TextField(
+                                      controller: singer,
+                                      //maxLength: 100,
+                                      onTap: (){
+
+                                      },
+                                    )
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10,),
+                            Row(
+                              children: [
+                                Text("Şarkı:"),
+                                SizedBox(width: 20),
+                                Container(
+                                    width: 150,
+                                    child: TextField(
+                                      controller: sing,
+                                      //maxLength: 50,
+                                      onTap: (){
+
+                                      },
+                                    )
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        actions: [
+                          ElevatedButton(
+                              onPressed: (){},
+                              child: Text("Ara")
+                          ),
+                          ElevatedButton(
+                              onPressed: (){
+                                Get.back();
+                              },
+                              child: Text("Vazgeç")
+                          ),
+                        ],
+
+                      );
+                    }
+                );
+              },
+              icon: const Icon(Icons.search, color: yellowColor),
+            ),
+            /*IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.sort_rounded, color: yellowColor),
+            ),*/
           ],
           //leading: const Icon(Icons.menu, color: yellowColor),
           title: Text(
@@ -47,55 +211,167 @@ class MusicPlayerTab extends StatelessWidget {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 4),
                   child: Obx(
-                        () => ListTile(
+                    () =>
+                    ListTile(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      tileColor: bgColor,
+                      tileColor: controller.playIndex.value == index &&  controller.isPlaying.value
+                          ? Colors.blueGrey :bgColor,
                       title: Text(
                         data[index].displayNameWOExt,
-                        style: myStyle(family: bold, size: 15),
+                        style:
+                            myStyle(family: bold, color: whiteColor, size: 15),
                       ),
                       subtitle: Text(
                         "${data[index].artist}",
-                        style: myStyle(family: regular, size: 12),
+                        style: myStyle(
+                            family: regular, color: whiteColor, size: 12),
                       ),
                       leading: QueryArtworkWidget(
                         id: data[index].id,
                         type: ArtworkType.AUDIO,
                         nullArtworkWidget: const Icon(
                           Icons.music_note,
-                          color: whiteColor,
+                          color: yellowColor,
                           size: 32,
                         ),
                       ),
-                      /*const Icon(
+                       /*const Icon(
                               Icons.music_note,
                               color: whiteColor,
                               size: 32,
-                            ),*/
-                      trailing: controller.playIndex.value == index &&
-                          controller.isPlaying.value
+                            ), */
+                      trailing:
+                      /*controller.playIndex.value == index &&
+                              controller.isPlaying.value
                           ? const Icon(Icons.play_arrow,
-                          color: whiteColor, size: 26)
-                          : null,
+                              color: yellowColor, size: 26)
+                          : */
+                      IconButton(
+                              icon: controller.favoriteSelectedList[index]
+                                  ? Icon(Icons.favorite, color: Colors.red, size: 26)
+                              : Icon(Icons.favorite_border_outlined, color: whiteColor, size: 26),
+                              onPressed: () {
+                                controller.changeFavoriteList(index,data);
+
+                                //print(controller.favoriteSelectedList.value.toString());
+                              },
+                            ),
+                      onTap: () {
+
+                        //controller.playSong(snapshot.data![index].uri, index);
+                        Get.to(
+                          () => Player(
+                            data: data,
+                          ),
+                          transition: Transition.leftToRightWithFade,
+                        );
+                        controller.playSong(data[index].uri, index);
+                      },
+                    ),
+                    /*InkWell(
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        color: bgColor,
+                        //color: Colors.white30,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  width:50,
+                                  child: QueryArtworkWidget(
+                                    id: data[index].id,
+                                    type: ArtworkType.AUDIO,
+                                    nullArtworkWidget: const Icon(
+                                      Icons.music_note,
+                                      color: yellowColor,
+                                      size: 32,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                flex: 6,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      data[index].displayNameWOExt,
+                                      style: myStyle(
+                                          family: bold,
+                                          color: whiteColor,
+                                          size: 15),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "${data[index].artist}",
+                                      style: myStyle(
+                                          family: regular,
+                                          color: whiteColor,
+                                          size: 12),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Visibility(
+                                      visible:
+                                      controller.playIndex.value == index &&
+                                          controller.isPlaying.value,
+                                      child: IconButton(
+                                        icon: const Icon(Icons.play_arrow,
+                                            color: yellowColor, size: 20),
+                                        onPressed: () {},
+                                      ),
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.favorite_border_outlined,
+                                          color: whiteColor, size: 20),
+                                      onPressed: () {},
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       onTap: () {
                         //controller.playSong(snapshot.data![index].uri, index);
                         Get.to(
                               () => Player(
                             data: data,
                           ),
-                          transition: Transition.downToUp,
+                          transition: Transition.leftToRightWithFade,
                         );
-                        controller.playSong(
-                            data[index].uri, index);
+                        controller.playSong(data[index].uri, index);
                       },
-                    ),
+                    ),*/
                   ),
                 );
               }),
         )
-              /*else if (snapshot.data!.isEmpty) {
+        /*else if (snapshot.data!.isEmpty) {
                 return Center(
                     child: Text(
                   "Hiç şarkı bulunamadı",
@@ -109,6 +385,6 @@ class MusicPlayerTab extends StatelessWidget {
                 return
               }*/
 
-    );
+        );
   }
 }
