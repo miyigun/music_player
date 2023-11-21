@@ -20,7 +20,7 @@ class FavoriteSingScreen extends StatelessWidget {
 
     //Favori şarkı ve şarkıcı listesinde boş olmayan indeksler ayrı bir listeye alınıyor
     for (int i=0;i<controller.favoriteSingList.length;i++){
-      if (controller.favoriteSingList[i]!=''){
+      if (controller.favoriteList[i].id!=''){
         favoriteIdList.add(controller.favoriteIdList[i]);
         favoriteSingList.add(controller.favoriteSingList[i]);
         favoriteSingerList.add(controller.favoriteSingerList[i]);
@@ -45,7 +45,7 @@ class FavoriteSingScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
             physics: const BouncingScrollPhysics(),
-            itemCount: favoriteSingList.length,
+            itemCount: controller.favoriteList.length,
             itemBuilder: (BuildContext context, int index){
               return Container(
                 margin: const EdgeInsets.only(bottom: 4),
@@ -56,7 +56,7 @@ class FavoriteSingScreen extends StatelessWidget {
                         ),
                         tileColor: bgColor,
                         leading: QueryArtworkWidget(
-                          id: favoriteIdList[index],
+                          id: int.parse(controller.favoriteList[index].id!),
                           type: ArtworkType.AUDIO,
                           nullArtworkWidget: const Icon(
                             Icons.music_note,
@@ -65,12 +65,12 @@ class FavoriteSingScreen extends StatelessWidget {
                           ),
                         ),
                         title: Text(
-                          favoriteSingList[index],
+                          controller.favoriteList[index].sing,
                           style:
                           myStyle(family: bold, color: whiteColor, size: 15),
                         ),
                         subtitle: Text(
-                          favoriteSingerList[index],
+                          controller.favoriteList[index].singer!,
                           style: myStyle(
                               family: regular, color: whiteColor, size: 12),
                         ),

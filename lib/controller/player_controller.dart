@@ -21,6 +21,8 @@ class PlayerController extends GetxController {
 
   var currentIndex=0.obs;
 
+  var dataAllList=<SingSongModel>[].obs;
+
   var favoriteListIndex=0.obs;
 
   var favoriteSelectedList=[].obs;
@@ -29,8 +31,10 @@ class PlayerController extends GetxController {
   var favoriteSingList=[].obs;
   var favoriteSingerList=[].obs;
 
-  var searchSingList=<SingSongModel>[].obs;
+  var searchSingList=[].obs;
   var searchSingerList=[].obs;
+
+  var favoriteList=<SingSongModel>[].obs;
 
   @override
   void onInit() {
@@ -38,6 +42,16 @@ class PlayerController extends GetxController {
     super.onInit();
 
     checkPermission();
+  }
+
+  void createDataAllList(List<SongModel> pullData){
+    late var middleVariable;
+
+    for (int i=0;i<pullData.length;i++){
+      middleVariable=SingSongModel(pullData[i].id.toString(), pullData[i].displayName, pullData[i].artist);
+
+      dataAllList.add(middleVariable);
+    }
   }
 
   searchSing(String singer, int index,List<SongModel> data){
@@ -48,13 +62,18 @@ class PlayerController extends GetxController {
     }
   }
 
-  changeFavoriteList(index,List <SongModel> data){
+  changeFavoriteList(index,List <SingSongModelModel> data){
     favoriteSelectedList[index]=!favoriteSelectedList[index];
 
     if (favoriteSelectedList[index]==true) {
       favoriteIdList[index]=data[index].id;
       favoriteSingList[index]=data[index].displayName;
       favoriteSingerList[index]=data[index].artist;
+
+      favoriteList[index].id(data[index].id.toString());
+      favoriteList[index].sing=data[index].displayName;
+      favoriteList[index].singer=data[index].artist;
+
 
     } else {
       favoriteIdList[index]='';

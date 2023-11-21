@@ -3,11 +3,12 @@ import 'package:get/get.dart';
 import 'package:music_player/controller/consts/colors.dart';
 import 'package:music_player/controller/consts/text_style.dart';
 import 'package:music_player/controller/player_controller.dart';
+import 'package:music_player/model/sing_song_model.dart';
 import 'package:music_player/view/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MusicPlayerTab extends StatelessWidget {
-  final List<SongModel> data;
+  final List<SingSongModel> data;
   const MusicPlayerTab({super.key, required this.data});
 
   @override
@@ -85,7 +86,7 @@ class MusicPlayerTab extends StatelessWidget {
                           ElevatedButton(
                               onPressed: (){
                                 for(int i=0;i<data.length;i++){
-                                  if (singer.value==data[i].artist){
+                                  if (singer.value==data[i].singer){
 
                                   }
                                 }
@@ -219,17 +220,17 @@ class MusicPlayerTab extends StatelessWidget {
                       tileColor: controller.playIndex.value == index &&  controller.isPlaying.value
                           ? Colors.blueGrey :bgColor,
                       title: Text(
-                        data[index].displayNameWOExt,
+                        data[index].sing,
                         style:
                             myStyle(family: bold, color: whiteColor, size: 15),
                       ),
                       subtitle: Text(
-                        "${data[index].artist}",
+                        "${data[index].singer}",
                         style: myStyle(
                             family: regular, color: whiteColor, size: 12),
                       ),
                       leading: QueryArtworkWidget(
-                        id: data[index].id,
+                        id: int.parse(controller.dataAllList[index].id!),
                         type: ArtworkType.AUDIO,
                         nullArtworkWidget: const Icon(
                           Icons.music_note,
@@ -253,7 +254,7 @@ class MusicPlayerTab extends StatelessWidget {
                                   ? Icon(Icons.favorite, color: Colors.red, size: 26)
                               : Icon(Icons.favorite_border_outlined, color: whiteColor, size: 26),
                               onPressed: () {
-                                controller.changeFavoriteList(index,data);
+                                controller.changeFavoriteList(index,controller.dataAllList.value);
 
                                 //print(controller.favoriteSelectedList.value.toString());
                               },

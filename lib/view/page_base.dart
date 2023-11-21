@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_player/controller/consts/colors.dart';
 import 'package:music_player/controller/player_controller.dart';
+import 'package:music_player/model/sing_song_model.dart';
 import 'package:music_player/view/music_player_tab.dart';
 import 'package:music_player/view/tools_tab.dart';
 import 'package:music_player/view/settings_tab.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PageBase extends StatelessWidget {
-  final List <SongModel> data;
+  final List <SingSongModel> data;
   const PageBase({super.key, required this.data});
 
 
@@ -18,8 +19,8 @@ class PageBase extends StatelessWidget {
     var controller = Get.put(PlayerController());
 
     var listPages=[
-      MusicPlayerTab(data: data),
-      ToolsTab(data: data),
+      MusicPlayerTab(data: controller.dataAllList.value),
+      ToolsTab(data: controller.dataAllList.value),
       const SettingsTab()
     ];
 

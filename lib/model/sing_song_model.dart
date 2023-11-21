@@ -1,7 +1,7 @@
 class SingSongModel{
-  String id;
+  String? id;
   String sing;
-  String singer;
+  String? singer;
 
   SingSongModel(this.id, this.sing, this.singer);
 
@@ -9,5 +9,4 @@ class SingSongModel{
   String toString() {
     return 'SingSongModel{id: $id, sing: $sing, singer: $singer}';
   }
-
 }
