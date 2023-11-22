@@ -74,13 +74,15 @@ class PlayerController extends GetxController {
     favoriteSelectedList[index]=!favoriteSelectedList[index];
 
     if (favoriteSelectedList[index]==true) {
-      favoriteList[index].id=data[index].id;
-      favoriteList[index].sing=data[index].displayName;
-      favoriteList[index].singer=data[index].artist;
+      var song=SingSongModel(data[index].id, data[index].displayName, data[index].artist);
+
+      favoriteList.add(song);
     } else {
-      favoriteList[index].id=0;
-      favoriteList[index].sing='';
-      favoriteList[index].singer='';
+      for (int i=0;i<favoriteList.length;i++){
+        if (favoriteList[i].id==data[index].id){
+          favoriteList.removeAt(i);
+        }
+      }
     }
   }
 
