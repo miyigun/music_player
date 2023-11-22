@@ -3,13 +3,11 @@ import 'package:get/get.dart';
 import 'package:music_player/controller/consts/colors.dart';
 import 'package:music_player/controller/consts/text_style.dart';
 import 'package:music_player/controller/player_controller.dart';
-import 'package:music_player/model/sing_song_model.dart';
 import 'package:music_player/view/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MusicPlayerTab extends StatelessWidget {
-  final List<SingSongModel> data;
-  const MusicPlayerTab({super.key, required this.data});
+  const MusicPlayerTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class MusicPlayerTab extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        title: Row(
+                        title: const Row(
                           //mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
@@ -49,9 +47,9 @@ class MusicPlayerTab extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Text("Şarkıcı:"),
-                                  SizedBox(width: 10),
-                                  Container(
+                                  const Text("Şarkıcı:"),
+                                  const SizedBox(width: 10),
+                                  SizedBox(
                                     width: 150,
                                       child: TextField(
                                         controller: singer,
@@ -63,12 +61,12 @@ class MusicPlayerTab extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 10,),
+                              const SizedBox(height: 10,),
                               Row(
                                 children: [
-                                  Text("Şarkı:"),
-                                  SizedBox(width: 20),
-                                  Container(
+                                  const Text("Şarkı:"),
+                                  const SizedBox(width: 20),
+                                  SizedBox(
                                       width: 150,
                                       child: TextField(
                                         controller: sing,
@@ -85,19 +83,19 @@ class MusicPlayerTab extends StatelessWidget {
                         actions: [
                           ElevatedButton(
                               onPressed: (){
-                                for(int i=0;i<data.length;i++){
-                                  if (singer.value==data[i].singer){
+                                for(int i=0;i<controller.dataAllList.length;i++){
+                                  if (singer.text==controller.dataAllList[i].artist){
 
                                   }
                                 }
                               },
-                              child: Text("Ara")
+                              child: const Text("Ara")
                           ),
                           ElevatedButton(
                               onPressed: (){
                                 Get.back();
                               },
-                              child: Text("Vazgeç")
+                              child: const Text("Vazgeç")
                           ),
                         ],
 
@@ -119,7 +117,7 @@ class MusicPlayerTab extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        title: Row(
+                        title: const Row(
                           //mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
@@ -136,9 +134,9 @@ class MusicPlayerTab extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Text("Şarkıcı:"),
-                                SizedBox(width: 10),
-                                Container(
+                                const Text("Şarkıcı:"),
+                                const SizedBox(width: 10),
+                                SizedBox(
                                     width: 150,
                                     child: TextField(
                                       controller: singer,
@@ -150,12 +148,12 @@ class MusicPlayerTab extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             Row(
                               children: [
-                                Text("Şarkı:"),
-                                SizedBox(width: 20),
-                                Container(
+                                const Text("Şarkı:"),
+                                const SizedBox(width: 20),
+                                SizedBox(
                                     width: 150,
                                     child: TextField(
                                       controller: sing,
@@ -172,13 +170,13 @@ class MusicPlayerTab extends StatelessWidget {
                         actions: [
                           ElevatedButton(
                               onPressed: (){},
-                              child: Text("Ara")
+                              child: const Text("Ara")
                           ),
                           ElevatedButton(
                               onPressed: (){
                                 Get.back();
                               },
-                              child: Text("Vazgeç")
+                              child: const Text("Vazgeç")
                           ),
                         ],
 
@@ -207,7 +205,7 @@ class MusicPlayerTab extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: data.length,
+              itemCount: controller.dataAllList.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 4),
@@ -220,17 +218,17 @@ class MusicPlayerTab extends StatelessWidget {
                       tileColor: controller.playIndex.value == index &&  controller.isPlaying.value
                           ? Colors.blueGrey :bgColor,
                       title: Text(
-                        data[index].sing,
+                        controller.dataAllList[index].displayName,
                         style:
                             myStyle(family: bold, color: whiteColor, size: 15),
                       ),
                       subtitle: Text(
-                        "${data[index].singer}",
+                        "${controller.dataAllList[index].artist}",
                         style: myStyle(
                             family: regular, color: whiteColor, size: 12),
                       ),
                       leading: QueryArtworkWidget(
-                        id: int.parse(controller.dataAllList[index].id!),
+                        id: controller.dataAllList[index].id,
                         type: ArtworkType.AUDIO,
                         nullArtworkWidget: const Icon(
                           Icons.music_note,
@@ -251,10 +249,10 @@ class MusicPlayerTab extends StatelessWidget {
                           : */
                       IconButton(
                               icon: controller.favoriteSelectedList[index]
-                                  ? Icon(Icons.favorite, color: Colors.red, size: 26)
-                              : Icon(Icons.favorite_border_outlined, color: whiteColor, size: 26),
+                                  ? const Icon(Icons.favorite, color: Colors.red, size: 26)
+                              : const Icon(Icons.favorite_border_outlined, color: whiteColor, size: 26),
                               onPressed: () {
-                                controller.changeFavoriteList(index,controller.dataAllList.value);
+                                controller.changeFavoriteList(index,controller.dataAllList);
 
                                 //print(controller.favoriteSelectedList.value.toString());
                               },
@@ -263,12 +261,10 @@ class MusicPlayerTab extends StatelessWidget {
 
                         //controller.playSong(snapshot.data![index].uri, index);
                         Get.to(
-                          () => Player(
-                            data: data,
-                          ),
+                          () => const Player(),
                           transition: Transition.leftToRightWithFade,
                         );
-                        controller.playSong(data[index].uri, index);
+                        controller.playSong(controller.dataAllList[index].uri, index);
                       },
                     ),
                     /*InkWell(

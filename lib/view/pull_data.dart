@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_player/controller/consts/colors.dart';
 import 'package:music_player/controller/player_controller.dart';
-import 'package:music_player/model/sing_song_model.dart';
 import 'package:music_player/view/page_base.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -46,19 +45,17 @@ class PullData extends StatelessWidget {
                 controller.createDataAllList(snapshot.data!);
 
                 controller.favoriteSelectedList.value=List.generate(snapshot.data!.length, (index) => false);
-                controller.favoriteIdList.value=List.generate(snapshot.data!.length, (index) => '');
-                controller.favoriteSingList.value=List.generate(snapshot.data!.length, (index) => '');
-                controller.favoriteSingerList.value=List.generate(snapshot.data!.length, (index) => '');
+                //controller.favoriteIdList.value=List.generate(snapshot.data!.length, (index) => '');
+                //controller.favoriteSingList.value=List.generate(snapshot.data!.length, (index) => '');
+                //controller.favoriteSingerList.value=List.generate(snapshot.data!.length, (index) => '');
 
-               var model=SingSongModel("","","");
+               //var model=SingSongModel("","","");
 
-                for(int i=0;i<snapshot.data!.length;i++) {
-                  controller.favoriteList.add(model);
+                //for(int i=0;i<snapshot.data!.length;i++) {
+                //  controller.favoriteList.add(model);
+                //}
 
-
-                }
-
-                return PageBase(data: controller.dataAllList.value);
+                return PageBase();
 
               }
             }));

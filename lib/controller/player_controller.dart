@@ -21,15 +21,15 @@ class PlayerController extends GetxController {
 
   var currentIndex=0.obs;
 
-  var dataAllList=<SingSongModel>[].obs;
+  var dataAllList=<SongModel>[].obs;
 
   var favoriteListIndex=0.obs;
 
   var favoriteSelectedList=[].obs;
 
-  var favoriteIdList=[].obs;
-  var favoriteSingList=[].obs;
-  var favoriteSingerList=[].obs;
+  //var favoriteIdList=[].obs;
+  //var favoriteSingList=[].obs;
+  //var favoriteSingerList=[].obs;
 
   var searchSingList=[].obs;
   var searchSingerList=[].obs;
@@ -45,13 +45,15 @@ class PlayerController extends GetxController {
   }
 
   void createDataAllList(List<SongModel> pullData){
-    late var middleVariable;
+    //var middleVariable;
 
-    for (int i=0;i<pullData.length;i++){
-      middleVariable=SingSongModel(pullData[i].id.toString(), pullData[i].displayName, pullData[i].artist);
+    //for (int i=0;i<pullData.length;i++){
+    //  middleVariable=SingSongModel(pullData[i].id.toString(), pullData[i].displayName, pullData[i].artist);
 
-      dataAllList.add(middleVariable);
-    }
+     // dataAllList.add(middleVariable);
+   // }
+
+    dataAllList.value=pullData;
   }
 
   searchSing(String singer, int index,List<SongModel> data){
@@ -62,24 +64,17 @@ class PlayerController extends GetxController {
     }
   }
 
-  changeFavoriteList(index,List <SingSongModelModel> data){
+  changeFavoriteList(index,List <SongModel> data){
     favoriteSelectedList[index]=!favoriteSelectedList[index];
 
     if (favoriteSelectedList[index]==true) {
-      favoriteIdList[index]=data[index].id;
-      favoriteSingList[index]=data[index].displayName;
-      favoriteSingerList[index]=data[index].artist;
-
-      favoriteList[index].id(data[index].id.toString());
+      favoriteList[index].id=data[index].id.toString();
       favoriteList[index].sing=data[index].displayName;
       favoriteList[index].singer=data[index].artist;
-
-
     } else {
-      favoriteIdList[index]='';
-      favoriteSingList[index]='';
-      favoriteSingerList[index]='';
-
+      favoriteList[index].id='';
+      favoriteList[index].sing='';
+      favoriteList[index].singer='';
     }
   }
 

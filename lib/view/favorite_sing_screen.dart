@@ -7,8 +7,7 @@ import 'package:music_player/view/player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class FavoriteSingScreen extends StatelessWidget {
-  final List<SongModel> data;
-  const FavoriteSingScreen({super.key, required this.data});
+  const FavoriteSingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +18,11 @@ class FavoriteSingScreen extends StatelessWidget {
     var favoriteSingerList=[];
 
     //Favori şarkı ve şarkıcı listesinde boş olmayan indeksler ayrı bir listeye alınıyor
-    for (int i=0;i<controller.favoriteSingList.length;i++){
+    for (int i=0;i<controller.favoriteList.length;i++){
       if (controller.favoriteList[i].id!=''){
-        favoriteIdList.add(controller.favoriteIdList[i]);
-        favoriteSingList.add(controller.favoriteSingList[i]);
-        favoriteSingerList.add(controller.favoriteSingerList[i]);
+        favoriteIdList.add(controller.favoriteList[i].id);
+        favoriteSingList.add(controller.favoriteList[i].sing);
+        favoriteSingerList.add(controller.favoriteList[i].singer);
       }
     }
 
@@ -75,15 +74,15 @@ class FavoriteSingScreen extends StatelessWidget {
                               family: regular, color: whiteColor, size: 12),
                         ),
                         trailing: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.play_arrow,
                               color: whiteColor,
                               size: 26
                           ),
                           onPressed: (){
 
-                            for(int i=0;i<data.length;i++) {
-                              if (favoriteIdList[index]==data[i].id) {
+                            for(int i=0;i<controller.dataAllList.length;i++) {
+                              if (favoriteIdList[index]==controller.dataAllList[i].id) {
                                 controller.playIndex.value=i;
                                 controller.isPlaying.value=true;
                               }
@@ -92,9 +91,7 @@ class FavoriteSingScreen extends StatelessWidget {
                             //List<SongModel> favoriteData=[controller.favoriteIdList[index],controller.favoriteSingList[index] ,controller.favoriteSingerList[index] ];
 
                             Get.to(
-                                  () => Player(
-                                data: data,
-                              ),
+                                  () => const Player(),
                               transition: Transition.leftToRightWithFade,
                             );
                           },

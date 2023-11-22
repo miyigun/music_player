@@ -6,8 +6,7 @@ import 'package:music_player/controller/player_controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Player extends StatelessWidget {
-  final List<SongModel> data;
-  const Player({super.key, required this.data});
+  const Player({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class Player extends StatelessWidget {
                 ),
                 alignment: Alignment.center,
                 child: QueryArtworkWidget(
-                  id: data[controller.playIndex.value].id,
+                  id: controller.dataAllList[controller.playIndex.value].id,
                   type: ArtworkType.AUDIO,
                   artworkHeight: double.infinity,
                   artworkWidth: double.infinity,
@@ -60,7 +59,7 @@ class Player extends StatelessWidget {
                       height: 12,
                     ),
                     Text(
-                      data[controller.playIndex.value].displayNameWOExt,
+                      controller.dataAllList[controller.playIndex.value].displayName,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
@@ -74,7 +73,7 @@ class Player extends StatelessWidget {
                       height: 6,
                     ),
                     Text(
-                      data[controller.playIndex.value].artist.toString(),
+                      controller.dataAllList[controller.playIndex.value].artist!,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
@@ -131,7 +130,7 @@ class Player extends StatelessWidget {
                         IconButton(
                           onPressed: () {
                             controller.playSong(
-                                data[controller.playIndex.value - 1].uri,
+                                controller.dataAllList[controller.playIndex.value - 1].uri,
                                 controller.playIndex.value - 1);
                           },
                           icon: const Icon(Icons.skip_previous_rounded,
@@ -166,7 +165,7 @@ class Player extends StatelessWidget {
                         IconButton(
                           onPressed: () {
                             controller.playSong(
-                                data[controller.playIndex.value + 1].uri,
+                                controller.dataAllList[controller.playIndex.value + 1].uri,
                                 controller.playIndex.value + 1);
                           },
                           icon: const Icon(Icons.skip_next_rounded,

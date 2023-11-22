@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_player/controller/consts/colors.dart';
 import 'package:music_player/controller/consts/text_style.dart';
-import 'package:music_player/controller/player_controller.dart';
 import 'package:music_player/view/favorite_sing_screen.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 
 class ToolsTab extends StatelessWidget {
-  final List<SongModel> data;
-  const ToolsTab({super.key, required this.data});
+  const ToolsTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    PlayerController controller = Get.find();
 
     return Scaffold(
       backgroundColor: bgDarkColor,
@@ -27,13 +23,13 @@ class ToolsTab extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               tileColor: bgColor,
-              leading: Icon(Icons.favorite, color: Colors.red,size: 30),
+              leading: const Icon(Icons.favorite, color: Colors.red,size: 30),
               title: Text("Beğendiğim Şarkılar",
                 style: myStyle(family: bold, color: yellowColor, size: 24),
               ),
               onTap: (){
 
-                Get.to(FavoriteSingScreen(data: data));
+                Get.to(const FavoriteSingScreen());
                 /*var favoriteIdList=[];
                 var favoriteSingList=[];
                 var favoriteSingerList=[];
@@ -227,7 +223,7 @@ class ToolsTab extends StatelessWidget {
                 );*/
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             ListTile(
@@ -235,12 +231,12 @@ class ToolsTab extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               tileColor: bgColor,
-              leading: Icon(Icons.list_alt, color: Colors.white,size: 30,),
+              leading: const Icon(Icons.list_alt, color: Colors.white,size: 30,),
               title: Text("Yeni Çalma Listesi Oluştur",
                 style: myStyle(family: bold, color: yellowColor, size: 24),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             ListTile(
@@ -248,7 +244,7 @@ class ToolsTab extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               tileColor: bgColor,
-              leading: Icon(Icons.list_outlined, color: Colors.white, size: 30),
+              leading: const Icon(Icons.list_outlined, color: Colors.white, size: 30),
               title: Text("Çalma Listelerim",
                 style: myStyle(family: bold, color: yellowColor, size: 24),
               ),
