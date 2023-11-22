@@ -56,6 +56,12 @@ class PlayerController extends GetxController {
     dataAllList.value=pullData;
   }
 
+  void addFavoriteSong(int index,List<SongModel> data){
+    var song=SingSongModel(data[index].id, data[index].displayName, data[index].artist);
+
+    favoriteList.add(song);
+  }
+
   searchSing(String singer, int index,List<SongModel> data){
     for(int i=0;i<data.length;i++){
       if (singer==data[i].artist){
@@ -68,11 +74,11 @@ class PlayerController extends GetxController {
     favoriteSelectedList[index]=!favoriteSelectedList[index];
 
     if (favoriteSelectedList[index]==true) {
-      favoriteList[index].id=data[index].id.toString();
+      favoriteList[index].id=data[index].id;
       favoriteList[index].sing=data[index].displayName;
       favoriteList[index].singer=data[index].artist;
     } else {
-      favoriteList[index].id='';
+      favoriteList[index].id=0;
       favoriteList[index].sing='';
       favoriteList[index].singer='';
     }

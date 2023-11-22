@@ -19,7 +19,7 @@ class FavoriteSingScreen extends StatelessWidget {
 
     //Favori şarkı ve şarkıcı listesinde boş olmayan indeksler ayrı bir listeye alınıyor
     for (int i=0;i<controller.favoriteList.length;i++){
-      if (controller.favoriteList[i].id!=''){
+      if (controller.favoriteList[i].id!=0){
         favoriteIdList.add(controller.favoriteList[i].id);
         favoriteSingList.add(controller.favoriteList[i].sing);
         favoriteSingerList.add(controller.favoriteList[i].singer);
@@ -55,7 +55,7 @@ class FavoriteSingScreen extends StatelessWidget {
                         ),
                         tileColor: bgColor,
                         leading: QueryArtworkWidget(
-                          id: int.parse(controller.favoriteList[index].id!),
+                          id: controller.favoriteList[index].id!,
                           type: ArtworkType.AUDIO,
                           nullArtworkWidget: const Icon(
                             Icons.music_note,

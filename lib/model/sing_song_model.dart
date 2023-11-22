@@ -1,5 +1,5 @@
 class SingSongModel{
-  String? id;
+  int? id;
   String sing;
   String? singer;
 
